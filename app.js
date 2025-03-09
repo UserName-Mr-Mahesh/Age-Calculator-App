@@ -34,7 +34,18 @@ function validate() {
   const day = parseInt(dayInp.value);
   const month = parseInt(monthInp.value);
   const year = parseInt(yearInp.value);
+  const currentDate = new Date();
 
+  if (
+    year > currentDate.getFullYear() ||
+    (year === currentDate.getFullYear() && month > (currentDate.getMonth() + 1)) ||
+    (year === currentDate.getFullYear() && month === (currentDate.getMonth() + 1) && day > currentDate.getDate())
+  ) {
+    yearInp.style.borderColor = "red";
+    yearInp.parentElement.querySelector("small").innerText = "Date cannot be in the future.";
+    validator = false;
+  }
+  
   if (month < 1 || month > 12) {
     monthInp.style.borderColor = "red";
     monthInp.parentElement.querySelector("small").innerText = "Must be a valid month.";
